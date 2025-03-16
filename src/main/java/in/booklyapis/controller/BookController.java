@@ -2,6 +2,7 @@ package in.booklyapis.controller;
 
 import in.booklyapis.model.Book;
 import in.booklyapis.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,12 +51,12 @@ public class BookController {
 
 
     @PostMapping("/books")
-    public ResponseEntity<Book> createBook(@RequestBody Book model){
+    public ResponseEntity<Book> createBook(@RequestBody @Valid Book model){
         return new ResponseEntity<>(bookService.addBook(model), HttpStatus.CREATED);
     }
 
     @PutMapping("/books")
-    public ResponseEntity<Book> editBook(@RequestBody Book model){
+    public ResponseEntity<Book> editBook(@RequestBody @Valid Book model){
         return new ResponseEntity<>(bookService.updateBook(model), HttpStatus.OK);
     }
 
