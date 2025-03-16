@@ -16,19 +16,42 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/books")
-    public ResponseEntity<List<Book>> getBooks(){
-        return new ResponseEntity<>(bookService.getBooks(), HttpStatus.CREATED);
-    }
-
-
-    @PostMapping("/books")
-    public ResponseEntity<Book> createBook(@RequestBody Book model){
-       return new ResponseEntity<>(bookService.addBook(model), HttpStatus.CREATED);
+    public ResponseEntity<List<Book>> getBooks(@RequestParam String Keyword){
+        if(Keyword == null)
+            return new ResponseEntity<>(bookService.getBooks(), HttpStatus.CREATED);
+        return new ResponseEntity<>(bookService.getBooksByKeyword(Keyword),HttpStatus.OK);
     }
 
     @GetMapping("/books/{id}")
     public ResponseEntity<Book> getBook(@PathVariable Long id){
         return new ResponseEntity<>(bookService.getBook(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/books/filterByTitle")
+    public ResponseEntity<List<Book>>  search(@RequestParam String title){
+        return new ResponseEntity<>(bookService.getBooksByTitle(title),HttpStatus.OK);
+    }
+
+
+    @GetMapping("/books/filterByGenre")
+    public ResponseEntity<List<Book>>  searchByGenre(@RequestParam String genre){
+        return new ResponseEntity<>(bookService.getBooksByGenre(genre),HttpStatus.OK);
+    }
+
+    @GetMapping("/books/filterByAuthor")
+    public ResponseEntity<List<Book>>  searchByAuthor(@RequestParam String author){
+        return new ResponseEntity<>(bookService.getBooksByAuthor(author),HttpStatus.OK);
+    }
+
+    @GetMapping("/books/filterByKeyword")
+    public ResponseEntity<List<Book>>  searchByKeyword(@RequestParam String keyword){
+        return new ResponseEntity<>(bookService.getBooksByKeyword(keyword),HttpStatus.OK);
+    }
+
+
+    @PostMapping("/books")
+    public ResponseEntity<Book> createBook(@RequestBody Book model){
+        return new ResponseEntity<>(bookService.addBook(model), HttpStatus.CREATED);
     }
 
     @PutMapping("/books")
