@@ -12,7 +12,7 @@ public interface BookService {
     void deleteBook(Long id);
     List<Book> getBooksByTitle(String name);
     List<Book> getBooksByGenre(String genre);
-    List<Book> getBooksByAuthor(String author);
+//    List<Book> getBooksByAuthor(String author);
     List<Book> getBooksByKeyword(String keyword);
 
 }

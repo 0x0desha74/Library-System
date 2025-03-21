@@ -24,8 +24,6 @@ public class Book {
     @NotBlank(message = "Title should not be null")
     private String title;
     private String genre;
-    @NotBlank(message = "Author should not be null")
-    private String author;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate publishedDate;
     private int availableCount;
@@ -37,5 +35,7 @@ public class Book {
     @UpdateTimestamp
     @Column(name ="updated_at")
     private Date updatedAt;
+    @ManyToOne
+    private Author author;
 }
 

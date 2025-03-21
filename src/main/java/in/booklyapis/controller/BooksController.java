@@ -2,6 +2,9 @@ package in.booklyapis.controller;
 
 import in.booklyapis.model.Book;
 import in.booklyapis.service.BookService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,10 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class BookController {
+public class BooksController {
     @Autowired
     private BookService bookService;
-
+    @Operation(summary = "Get all users", description = "Returns a list of all users.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping("/books")
     public ResponseEntity<List<Book>> getBooks(@RequestParam String Keyword){
         if(Keyword == null)
@@ -39,10 +46,10 @@ public class BookController {
         return new ResponseEntity<>(bookService.getBooksByGenre(genre),HttpStatus.OK);
     }
 
-    @GetMapping("/books/filterByAuthor")
-    public ResponseEntity<List<Book>>  searchByAuthor(@RequestParam String author){
-        return new ResponseEntity<>(bookService.getBooksByAuthor(author),HttpStatus.OK);
-    }
+//    @GetMapping("/books/filterByAuthor")
+//    public ResponseEntity<List<Book>>  searchByAuthor(@RequestParam String author){
+//        return new ResponseEntity<>(bookService.getBooksByAuthor(author),HttpStatus.OK);
+//    }
 
     @GetMapping("/books/filterByKeyword")
     public ResponseEntity<List<Book>>  searchByKeyword(@RequestParam String keyword){
