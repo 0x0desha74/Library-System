@@ -46,10 +46,10 @@ public class BooksController {
         return new ResponseEntity<>(bookService.getBooksByGenre(genre),HttpStatus.OK);
     }
 
-//    @GetMapping("/books/filterByAuthor")
-//    public ResponseEntity<List<Book>>  searchByAuthor(@RequestParam String author){
-//        return new ResponseEntity<>(bookService.getBooksByAuthor(author),HttpStatus.OK);
-//    }
+    @GetMapping("/books/filterByAuthor")
+    public ResponseEntity<List<Book>>  searchByAuthor(@RequestParam String author){
+        return new ResponseEntity<>(bookService.getBooksByAuthorName(author),HttpStatus.OK);
+    }
 
     @GetMapping("/books/filterByKeyword")
     public ResponseEntity<List<Book>>  searchByKeyword(@RequestParam String keyword){

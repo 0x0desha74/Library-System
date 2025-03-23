@@ -51,11 +51,11 @@ public class BookServiceImpl implements BookService {
     public List<Book> getBooksByGenre(String genre) {
         return bookRepository.findByGenre(genre);
     }
-//
-//    @Override
-//    public List<Book> getBooksByAuthor(String author) {
-//        return bookRepository.findByAuthor(author);
-//    }
+
+    @Override
+    public List<Book> getBooksByAuthorName(String author) {
+        return bookRepository.findByAuthorName(author);
+    }
 
     @Override
     public List<Book> getBooksByKeyword(String keyword) {
