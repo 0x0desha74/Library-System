@@ -1,11 +1,13 @@
 package in.booklyapis.service.impls;
 
+import in.booklyapis.dto.BookDto;
 import in.booklyapis.model.Book;
 import in.booklyapis.repository.BookRepository;
 import in.booklyapis.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,8 +17,20 @@ public class BookServiceImpl implements BookService {
     private BookRepository  bookRepository;
 
     @Override
-    public List<Book> getBooks() {
-        return bookRepository.findAll();
+    public List<BookDto> getBooks() {
+        var books = bookRepository.findAll();
+        List<BookDto> booksDto = new ArrayList<>();
+        books.forEach(b->{
+            BookDto bDto = new BookDto();
+            bDto.setId(b.getId());
+            bDto.setAuthor(b.getAuthor().getName());
+            bDto.setGenre(b.getGenre());
+            bDto.setTitle(b.getTitle());
+            bDto.setAvailableCount(b.getAvailableCount());
+            bDto.setTotalCount(b.getTotalCount());
+            booksDto.add(bDto);
+        });
+        return booksDto;
     }
 
     @Override
@@ -58,7 +72,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getBooksByKeyword(String keyword) {
+    public List<BookDto> getBooksByKeyword(String keyword) {
         return bookRepository.findByTitleContaining(keyword);
     }
 }

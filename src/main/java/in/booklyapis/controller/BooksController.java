@@ -1,5 +1,6 @@
 package in.booklyapis.controller;
 
+import in.booklyapis.dto.BookDto;
 import in.booklyapis.model.Book;
 import in.booklyapis.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class BooksController {
@@ -24,10 +26,9 @@ public class BooksController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/books")
-    public ResponseEntity<List<Book>> getBooks(@RequestParam String Keyword){
-        if(Keyword == null)
-            return new ResponseEntity<>(bookService.getBooks(), HttpStatus.CREATED);
-        return new ResponseEntity<>(bookService.getBooksByKeyword(Keyword),HttpStatus.OK);
+    public ResponseEntity<List<BookDto>> getBooks(){
+            return new ResponseEntity<>(bookService.getBooks(), HttpStatus.OK);
+
     }
 
     @GetMapping("/books/{id}")
@@ -52,7 +53,7 @@ public class BooksController {
     }
 
     @GetMapping("/books/filterByKeyword")
-    public ResponseEntity<List<Book>>  searchByKeyword(@RequestParam String keyword){
+    public ResponseEntity<List<BookDto>>  searchByKeyword(@RequestParam String keyword){
         return new ResponseEntity<>(bookService.getBooksByKeyword(keyword),HttpStatus.OK);
     }
 

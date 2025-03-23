@@ -1,11 +1,12 @@
 package in.booklyapis.service;
 
+import in.booklyapis.dto.BookDto;
 import in.booklyapis.model.Book;
 
 import java.util.List;
 
 public interface BookService {
-    List<Book> getBooks();
+    List<BookDto> getBooks();
     Book getBook(Long id);
     Book addBook(Book entity);
     Book updateBook(Book entity);
@@ -13,6 +14,6 @@ public interface BookService {
     List<Book> getBooksByTitle(String name);
     List<Book> getBooksByGenre(String genre);
     List<Book> getBooksByAuthorName(String author);
-    List<Book> getBooksByKeyword(String keyword);
+    List<BookDto> getBooksByKeyword(String keyword);
 
 }
